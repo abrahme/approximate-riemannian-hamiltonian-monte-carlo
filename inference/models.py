@@ -1,6 +1,8 @@
 import torch 
 import torch.nn as nn
 
+
+
 class NNgHMC(nn.Module):
     """
     simple model which aims to model the gradient of the log likelihood directly 
@@ -15,7 +17,6 @@ class NNgHMC(nn.Module):
             nn.Linear(in_features=self.input_dim, out_features = self.hidden_dim)(x)
             ))
     
-
 
 class NNmRHMC(nn.Module):
     """
@@ -43,7 +44,22 @@ class NNmRHMC(nn.Module):
 
 
 
+class NNEnergy(nn.Module):
+    """
+    simple neural network that models the hamiltonian energy,
+    need it to always be positive
+    """
 
+    def __init__(self, input_dim: int, hidden_dim: int) -> None:
+        super(NNEnergy).__init__()
+        self.input_dim = input_dim
+        self.output_dim = 1
+        self.hidden_dim = hidden_dim
+    def forward(self, x):
+        return nn.Softplus()(nn.Linear(in_features=self.hidden_dim, out_features = self.output_dim)(nn.Tanh()(
+            nn.Linear(in_features=self.input_dim, out_features = self.hidden_dim)(x)
+            )))
+    
 
     
 
