@@ -1,0 +1,17 @@
+name: approx-hmc
+channels: 
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python >= 3.11
+  - pip
+  - pytorch 
+  - torchvision 
+  - torchaudio 
+  - pytorch-cuda=11.8 
+  - matplotlib
+  - pip:
+    - torchdyn
+    - git+https://github.com/AdamCobb/hamiltorch
+    - emlp
